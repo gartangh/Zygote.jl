@@ -14,7 +14,7 @@ end
 
 @adjoint logsoftmax(xs; dims=1) = logsoftmax(xs, dims=dims), Δ -> (∇logsoftmax(Δ, xs, dims=dims),)
 
-@adjoint NNlib.DenseConvDims(args...; kwargs...) = NNlib.DenseConvDims(args...; kwargs...), _ -> nothing
+@adjoint NNlib.ConvDims(args...; kwargs...) = NNlib.ConvDims(args...; kwargs...), _ -> nothing
 # @adjoint NNlib.DepthwiseConvDims(args...; kwargs...) = NNlib.DepthwiseConvDims(args...; kwargs...), _ -> nothing
 @adjoint NNlib.PoolDims(args...; kwargs...) = NNlib.PoolDims(args...; kwargs...), _ -> nothing
 
