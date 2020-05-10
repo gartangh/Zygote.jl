@@ -202,7 +202,7 @@ end
 @testset "conv: spatial_rank=$spatial_rank" for spatial_rank in (1, 2, 3)
   x = rand(repeat([5], spatial_rank)..., 3, 2)
   w = rand(repeat([3], spatial_rank)..., 3, 3)
-  cdims = DenseConvDims(x, w)
+  cdims = ConvDims(x, w)
   @test gradtest((x, w) -> conv(x, w, cdims), x, w)
   @test gradtest((x, w) -> sum(conv(x, w, cdims)), x, w)  # https://github.com/FluxML/Flux.jl/issues/1055
 
@@ -1426,7 +1426,7 @@ end
   @testset "broadcast +, -, *, /" begin
     for sx in [(M, N), (M, 1), (1, N), (1, 1)]
       for sy in [(M, N), (M, 1), (1, N), (1, 1)]
-        
+
         #addition, subtraction, multiplication
         for f ∈ (+, -, *)
           @test gradtest((x, y) -> f.(Fill(first(x), sx...), Fill(first(y), sy...)), [x], [y])
